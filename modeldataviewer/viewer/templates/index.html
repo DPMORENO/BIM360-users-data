@@ -1,0 +1,48 @@
+{% load static %}
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <title>User Data Download</title>
+    <meta name="viewport" content="width=device-width, minimum-scale=1.0, initial-scale=1, user-scalable=no" />
+    <meta charset="utf-8">
+    <link rel="stylesheet" href="{% static 'viewer.css' %}" type="text/css">
+    <link rel="stylesheet" href="https://cdn.rawgit.com/Chalarangelo/mini.css/v3.0.1/dist/mini-default.min.css">
+</head>
+<body>
+    <body></body>
+        <div id="tablespace">
+        <table id="table">
+            <thead>
+                <tr>
+                <th style="text-align: center;">Firstname</th>
+                <th style="text-align: center;">Lastname</th>
+                <th style="text-align: center;">Acces Level</th>
+                <th style="text-align: center;">Services</th>
+                </tr>
+            </thead>
+            <tbody id="tbody"></tbody>
+        </table>
+        </div>
+        <div id="sidebar">
+            <h3>BIM360 HUBS</h3>
+            <ul>
+                {% for Hub in Hubs %}
+                <li><p id="{{ Hub.id }}" class="sublink-1">{{ Hub.name }}</p>
+                <ul>
+                    {% for project in Hub.content %}
+                    <li>
+                        <a id="{{project.id}}" onclick="loadUsers(event)" class="sublink-2">{{project.name}}</a>
+                    </li>
+                    {% endfor %}
+                </ul>
+                </li>
+                {% endfor %}
+            </ul>
+        </div>
+        <div id="button">
+            <button id="csv" type="button" onclick="downcsv()">Export CSV</button>
+        </div>
+    <script src="{% static 'viewer.js' %}"></script>
+</body>
+</html>
